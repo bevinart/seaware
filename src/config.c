@@ -1,69 +1,67 @@
 #include "../config.h"
 
-cfg read_config(char * cfgFile, char delim) {
-    cfg newConf;
-    newConf.singleSize = 0;
-    newConf.multiSize = 0;
-
-    char * config;
-    if (file_exists(cfgFile)==false) {
-        config = (char*)malloc(strlen(cfgFile)+1);
-        config = cfgFile;
+void update_config(char * filePath, struct Config cfg) {
+    remove(filePath);
+    for (int i = 0; i < cfg.valuesSize; i++) {
+        append_file(filePath, "{\n");
+        for (int j = 0; j < 4; j++) {
+            append_file(filePath, cfg.values[i][j][0]);
+            append_file(filePath, ":");
+            append_file(filePath, cfg.values[i][j][1]);
+            append_file(filePath, "\n");
+        }
+        append_file(filePath, "}\n");
     }
-    else {
-        char * placeholder = read_file(cfgFile);
-        config = (char*)malloc(strlen(placeholder)+1);
-        config = placeholder;
-    }
-
-    config = remove_char(config, ' ');
-    config = remove_comments(config);
-    
-    // Needs value counter for memory allocation
-    newConf.singleValues = (char ***)malloc(sizeof(config)+1);
-    newConf.multiValues = (char ****)malloc(sizeof(config)+1);
-
-    for (int i = 0; i < strlen(config); i++) {
-        if () {
-
-        }
-
-        // Multi Value
-        if (config[i]==delim && config[i+1]=='{') {
-
-        }
-        // Single Value
-        else if (config[i]==delim) {
-            char * pholder = config;
-            char * split = strtok(pholder, ":");
-            char * firstValue = split;
-            split = strtok(NULL, ":");
-            char * secondValue = strtok(split, "\n");
-
-            newConf.singleValues[newConf.singleSize] = (char **)malloc(strlen(firstValue)+strlen(secondValue)+1);
-            newConf.singleValues[newConf.singleSize][0] = (char*)malloc(strlen(firstValue)+1);
-            newConf.singleValues[newConf.singleSize][0] = firstValue;
-
-            newConf.singleValues[newConf.singleSize][1] = (char*)malloc(strlen(secondValue)+1);
-            newConf.singleValues[newConf.singleSize][1] = secondValue;
-
-            printf("%s\n", newConf.singleValues[newConf.singleSize][1]);
-
-            newConf.singleSize++;
-        }
-
-        // normal char
-        else {
-            printf("%c", config[i]);
-            continue;
-        }
-        continue;
-    }
-
-
-    return newConf;
 }
 
-char * print_config(cfg conf) {
-    return "Testing";
+struct Config read_config(struct Config newCfg, char * cfg) {
+    int configIsMalloc = 0;
+
+    char * config;
+    if (file_exists(cfg)) {
+        config = read_file(cfg);
+        configIsMalloc=1;
+    }
+    else {
+        config = cfg;
+    }
+    if (newCfg.valuesSize == 0) {
+        newCfg.values = malloc(sizeof(char****)*255);
+        *newCfg.values = '\0';
+    }
+    int valuesPtr = 0;
+    while(config) {
+        char * nextLine = strchr(config, '\n');
+        if (nextLine) *nextLine = '\0';
+        if (config[0] == '{') {
+            newCfg.values[newCfg.valuesSize] = malloc(sizeof(char***)*255);
+            *newCfg.values[newCfg.valuesSize] = '\0';
+        }
+        else if (strstr(config, "}")) {
+            newCfg.valuesSize++;
+            valuesPtr=0;
+        }
+        else if (strstr(config, ":")) {
+            newCfg.values[newCfg.valuesSize][valuesPtr] = malloc(sizeof(char**)*255);
+            *newCfg.values[newCfg.valuesSize][valuesPtr] = '\0';
+
+            char * split = strtok(config, ":");
+            newCfg.values[newCfg.valuesSize][valuesPtr][0] = malloc(strlen(split)*sizeof(char*));
+            *newCfg.values[newCfg.valuesSize][valuesPtr][0] = '\0';
+            strcat(newCfg.values[newCfg.valuesSize][valuesPtr][0], split);
+            printf("%s", newCfg.values[newCfg.valuesSize][valuesPtr][0]);
+
+            split = strtok(NULL, ":");
+            newCfg.values[newCfg.valuesSize][valuesPtr][1] = malloc(strlen(split)*sizeof(char*));
+            *newCfg.values[newCfg.valuesSize][valuesPtr][1] = '\0';
+            strcat(newCfg.values[newCfg.valuesSize][valuesPtr][1], split);
+            valuesPtr++;
+        }
+
+        if (nextLine) *nextLine = '\n';
+        config = nextLine ? (nextLine+1) : NULL;
+    }
+
+    (configIsMalloc==1) ? free(config) : NULL;
+    return newCfg;
 }

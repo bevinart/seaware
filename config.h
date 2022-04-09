@@ -1,56 +1,34 @@
-#include "files.h"
-#include "converter.h"
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #include <string.h>
+#include <stdlib.h>
+#include "files.h"
 
-// MAKE SURE ALL COMMENTS IN CONFIG ARE EITHER
-//  a. SPACED FROM THE VALUE
-//  b. ON A NEW LINE
+/*
+	CONFIG SETUP
 
-typedef struct Config {
-    /* Single Values works as follows
-         Arch: x86_64
-         Arch, singleValues[0][0]
-         x86_64, singleValues[0][1]
+{
+ID:001
+TITLE:SOMETHING
+}
+{
+ID:002
+TITLE:ELSE
+}
 
-    */
-    char *** singleValues;
-
-    /* There are 2 ways this works
-        a. Grabs a set of strings, such as grabbing Repo URLS
-        b. Can grab multiple single values and put them under one name
-
-        Example: Single Values
-        CFG:
-            Specs: {
-                Arch: x86_64
-            }
-        GETTING VALUES:
-            Specs, multiValues[0][0]
-            Arch, multiValues[0][0][0]
-            x86_64, multiValues[0][0][1]
+*/
 
 
-        Example: Repo URLS
-        CFG:
-            Repos: { URL1, URL2 }
-        GETTING VALUES:
-            Repos, multiValues[0][0]
-            URL1, multiValues[0][0][0]
-            URL2, multiValues[0][1][0]
-    Due to the fact that they don't need an identifier and only provide one string, 
-    We have to make the jump in the *** array
-    */    
-    char **** multiValues;
+struct Config {
+    char **** values;
+    int valuesSize;
+};
 
-    // Acts as a ptr for accessing both values
-    int singleSize;
-    int multiSize;
-} cfg;
+struct Config read_config(struct Config newCfg, char * cfg);
+struct Config add_to_config(struct Config dest, char * src);
+struct Config remove_from_config(struct Config cfg, int index);
 
-cfg read_config(char * cfg, char delim);
+void update_config(char * filePath, struct Config cfg);
 
-int get_sv_size(char * cfg);
-int get_mv_size(char * cfg);
-
-char * remove_comments(char * cfg);
-char * print_config(cfg conf);
+#endif
