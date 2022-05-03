@@ -1,3 +1,6 @@
 *.o
 test
 test-file.cfg
+.vscode/
+*.a
+*.so
