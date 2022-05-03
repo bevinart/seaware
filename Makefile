@@ -1,15 +1,22 @@
 ARGS=-g
-CC=clang $(ARGS)
+CC=gcc $(ARGS)
+AR=ar
 
-ALL_O_FILES=main.o config.o files.o json.o string.o
+ALL_O_FILES=files.o json.o string.o
 
-test: $(ALL_O_FILES)
+# Testing files
+test: main.o $(ALL_O_FILES)
 	$(CC) -o test $(ALL_O_FILES)
-
 main.o: src/main.c
 	$(CC) -o main.o -c src/main.c
-config.o: src/config.c config.h
-	$(CC) -o config.o -c src/config.c
+
+# Seaware library
+seaware.a: $(ALL_O_FILES)
+	$(AR) rcs libseaware.a $^
+seaware.so: $(ALL_O_FILES)
+	$(CC) -shared -o libseaware.so $^
+
+# Seaware files
 files.o: src/files.c files.h
 	$(CC) -o files.o -c src/files.c
 json.o: src/json.c json.h
@@ -17,6 +24,8 @@ json.o: src/json.c json.h
 string.o: src/string.c string.h
 	$(CC) -o string.o -c src/string.c
 
+# PHONYs
+.PHONY: clean
 clean:
 	rm *.o
 	rm test
