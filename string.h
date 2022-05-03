@@ -22,9 +22,7 @@ char * t_split(char * str, char * delim);
 
 // Converters
 char * itos(int num);
-char * ltos(long num);
 char * ftos(float num);
-char * dtos(double num);
 
 #define CWARE_STRING_H
 #endif
