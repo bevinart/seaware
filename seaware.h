@@ -4,6 +4,5 @@
 #include "files.h"
 #include "json.h"
 #include "string.h"
-#include "config.h"
 
 #endif
