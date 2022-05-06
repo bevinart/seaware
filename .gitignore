@@ -1,5 +1,5 @@
 *.o
-test
+test*
 test-file.cfg
 .vscode/
 *.a
