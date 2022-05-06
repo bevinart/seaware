@@ -4,7 +4,7 @@ char * read_file(char * filePath) {
     FILE *file;
     file = fopen(filePath, "r");
     char c;
-    char output[get_file_size(filePath)+1];
+    char * output = malloc(sizeof(char) * get_file_size(filePath));
     int outputPtr = 0;
 
     while((c = getc(file)) != EOF) {
@@ -13,8 +13,7 @@ char * read_file(char * filePath) {
     }
 
     fclose(file);
-    char * ret = output;
-    return ret;
+    return output;
 }
 int get_file_size(char * filePath) {
     FILE *file;
