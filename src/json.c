@@ -1,4 +1,7 @@
 #include "../json.h"
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 struct JSON parse(char * jsonLocale) {
     // Allocating variables

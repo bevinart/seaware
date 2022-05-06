@@ -1,8 +1,6 @@
 #ifndef FILES_H
 
 #include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 // Read
 char * read_file(char * filePath);

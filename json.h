@@ -14,7 +14,7 @@
 
 #include "files.h"
 #include "string.h"
-#include <string.h>
+
 
 struct JSON {
     // Field name, if no name, then NULL

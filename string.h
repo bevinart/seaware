@@ -1,10 +1,5 @@
 #ifndef CWARE_STRING_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-
 // Combines all strings into one
 // 'int args' : # of argss
 char * add_strings(int args, ...);

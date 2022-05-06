@@ -1,4 +1,5 @@
 #include "../seaware.h"
+#include <stdio.h>
 
 // main.c : Testing file
 

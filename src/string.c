@@ -1,5 +1,11 @@
 #include "../string.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
+
+
 char * add_strings(int args, ...) {
     va_list vl;
     va_start(vl, args);

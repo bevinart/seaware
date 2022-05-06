@@ -1,5 +1,10 @@
 #include "../files.h"
 
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
 char * read_file(char * filePath) {
     FILE *file;
     file = fopen(filePath, "r");
