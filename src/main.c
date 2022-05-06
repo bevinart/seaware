@@ -1,29 +1,38 @@
 #include "../seaware.h"
 
-// Testing file
+// main.c : Testing file
 
 int main(int argc, char * argv[]) {
-    //cfg conf;
-    char * anotherTest[255][255];
-    anotherTest[0][0] = "Test ";
-    anotherTest[0][1] = " ing";
+    // Variables
+    struct JSON json;
     
-    // files check
-    // if (file_exists("test-file.cfg")==true) {
-    //     remove("test-file.cfg");
-    // }
-    // create_file("test-file.cfg");
-    // append_file("test-file.cfg", print_config(conf));
-    // printf("%s", read_file("test-file.cfg"));
-    // printf("%i\n", get_file_size("test-file.cfg"));
-    // conf = read_config(read_file("test-file.cfg"), ':');
+    // WARN HANDLE TEST
+    WARN("This library is stil under development, please be considerate.\n");
 
-    printf(strstr("testPoint", "Point"));
+    // FILES TEST
+    if (file_exists("./test.json")) {
+        // JSON TEST {
+        json = parse("./test.json");
+        //    string test
+        printf("JSON String is: %s\n", json.values[0][0]);
+        //    array test
+        printf("JSON Array is: %s\n", json.values[2][2]);
+        //    navigation test
+        printf("JSON Navigation is: %s\n", json.nextField[0]->values[0][1]);
+        // }
+    }
+    else {
+        // ERR HANDLE TEST
+        ERR("Couldn't find 'test.json'\n");
+    }
 
+    // STRINGS TEST
     char * as_test = add_strings(3, "Another", "Test", "lamayo");
-    printf("String is: %s\n", as_test);
-    printf("%s\n", itos(12));
-    printf("%s\n", ftos(12.f));
+    printf("add_strings() result is: %s\n", as_test);
+    
+    // These don't work
+    printf("itos() result is: %s\n", itos(12));
+    printf("ftos() result is: %s\n", ftos(12.1f));
 
     return 0;
 }
