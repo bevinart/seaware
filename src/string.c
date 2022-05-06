@@ -13,16 +13,17 @@ char * add_strings(int args, ...) {
 }
 
 char * remove_char(char * str, char delim) {
-    char newStr[strlen(str)+1];
-    int ptr = 0;
+    char * ret = malloc(sizeof(char)*strlen(str));
+    int retPtr = 0;
     for (int i = 0; i < strlen(str); i++) {
         if (str[i]!=delim) {
-            newStr[ptr] = str[i];
-            ptr++;
+            ret[retPtr] = str[i];
+            retPtr++;
         }
+        continue;
     }
-    char * answer = newStr;
-    return answer;
+    ret[retPtr] = '\0';
+    return ret;
 }
 
 
@@ -44,13 +45,6 @@ char * t_split(char * str, char * delim) {
 char * itos(int num) {
     char str[255];
     sprintf(str, "%d", num);
-    char * ret = str;
-    return ret;
-}
-// Long to String
-char * ltos(long num) {
-    char str[255];
-    sprintf(str, "%ld", num);
     char * ret = str;
     return ret;
 }
