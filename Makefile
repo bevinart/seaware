@@ -27,5 +27,5 @@ string.o: src/string.c string.h
 # PHONYs
 .PHONY: clean
 clean:
-	rm *.o
-	rm test
+	rm -rf *.o
+	rm -rf test
