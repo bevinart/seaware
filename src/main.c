@@ -29,8 +29,7 @@ int main(int argc, char * argv[]) {
     // STRINGS TEST
     char * as_test = add_strings(3, "Another", "Test", "lamayo");
     printf("add_strings() result is: %s\n", as_test);
-    
-    // These don't work
+
     printf("itos() result is: %s\n", itos(12));
     printf("ftos() result is: %s\n", ftos(12.1f));
 
