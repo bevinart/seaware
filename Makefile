@@ -1,12 +1,12 @@
 ARGS=-g
-CC=gcc $(ARGS)
+CC=clang $(ARGS)
 AR=ar
 
 ALL_O_FILES=files.o json.o string.o
 
 # Testing files
 test: main.o $(ALL_O_FILES)
-	$(CC) -o test $(ALL_O_FILES)
+	$(CC) -o test $^
 main.o: src/main.c
 	$(CC) -o main.o -c src/main.c
 
