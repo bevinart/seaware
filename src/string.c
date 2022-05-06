@@ -10,10 +10,12 @@ char * add_strings(int args, ...) {
     va_list vl;
     va_start(vl, args);
     char placeHolder[255*args];
+    *placeHolder = '\0';
 
     for (int i = 0; i < args; i++) {
         strcat(placeHolder, va_arg(vl, char*));        
     }
+    
     char * ret = placeHolder;
     return ret;
 }
