@@ -38,6 +38,15 @@ struct JSON {
 };
 
 // Can take a file or a string
+// A.K.A Parses each object (God forbid you use a different JSON file)
+/*
+    {
+        ...
+    }
+    {
+        ...
+    }
+*/
 struct JSON parse(char * jsonLocale);
 
 // With these functions, 'struct JSON json' MUST BE IN FIELD WITH VALUE YOU WANT!!
