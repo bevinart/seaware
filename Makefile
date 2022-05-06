@@ -1,5 +1,5 @@
 ARGS=-g
-CC=clang $(ARGS)
+CC=gcc $(ARGS)
 AR=ar
 
 ALL_O_FILES=files.o json.o string.o
