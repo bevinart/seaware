@@ -1,4 +1,4 @@
-#ifndef FILES_H
+#ifndef CWARE_FILES_H
 
 #include <stdbool.h>
 
@@ -13,5 +13,5 @@ void append_file(char * filePath, char * content);
 // Booleans
 bool file_exists(char * filePath);
 
-#define FILES_H
+#define CWARE_FILES_H
 #endif
