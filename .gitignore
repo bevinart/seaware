@@ -3,7 +3,7 @@
 *.so
 *.vcxproj*
 *.sln
-test.*
+test.*/
 CMakeCache.txt
 cmake_install.cmake
 CMakeFiles/
