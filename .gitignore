@@ -1,6 +1,10 @@
 *.o
-test*
-test-file.cfg
-.vscode/
 *.a
 *.so
+*.vcxproj*
+*.sln
+test.*
+CMakeCache.txt
+cmake_install.cmake
+CMakeFiles/
+.vscode/

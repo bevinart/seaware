@@ -1,7 +1,7 @@
 #ifndef CWARE_STRING_H
 
 // Combines all strings into one
-// 'int args' : # of argss
+// 'int args' : # of args
 char * add_strings(int args, ...);
 
 char * remove_char(char * str, char delim);
