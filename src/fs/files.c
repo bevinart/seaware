@@ -1,4 +1,4 @@
-#include "../files.h"
+#include "files.h"
 
 #include <stdbool.h>
 #include <stdio.h>
