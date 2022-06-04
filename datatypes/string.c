@@ -1,4 +1,4 @@
-#include "../string.h"
+#include "string.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,15 +9,14 @@
 char * add_strings(int args, ...) {
     va_list vl;
     va_start(vl, args);
-    char placeHolder[255*args];
+    char * placeHolder = malloc(sizeof(char)*(255*args));
     *placeHolder = '\0';
 
     for (int i = 0; i < args; i++) {
         strcat(placeHolder, va_arg(vl, char*));        
     }
     
-    char * ret = placeHolder;
-    return ret;
+    return placeHolder;
 }
 
 char * remove_char(char * str, char delim) {
@@ -36,7 +35,7 @@ char * remove_char(char * str, char delim) {
 
 
 char * remove_substr(char * str, char * delim) {
-
+    
 }
 
 char ** split(char * str, char * delim) {

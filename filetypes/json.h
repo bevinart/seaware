@@ -12,8 +12,8 @@
 
 #define MAX_VALUE_SIZE 255
 
-#include "files.h"
-#include "string.h"
+#include "../fs/files.h"
+#include "../datatypes/string.h"
 
 
 struct JSON {
