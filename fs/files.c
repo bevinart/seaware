@@ -18,6 +18,8 @@ char * read_file(char * filePath) {
     }
 
     fclose(file);
+
+    output[outputPtr] = '\0';
     return output;
 }
 int get_file_size(char * filePath) {
