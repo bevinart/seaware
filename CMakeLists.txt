@@ -9,6 +9,7 @@ add_library(seaware STATIC ./fs.h
                         "./datatypes/string.c" "./datatypes/string.h"
                         ./filetypes.h
                         ./filetypes/json.c ./filetypes/json.h
+                        ./filetypes/ini.c ./filetypes/ini.h
             )
 
 # Making Test exec (OPTIONAL)
