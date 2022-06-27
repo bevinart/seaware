@@ -5,7 +5,7 @@
 
 */
 
-#include <ini.h>
+#include "ini.h"
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
@@ -35,7 +35,7 @@ struct INI * ini_init() {
 }
 
 // Interprets an INI file, with syntax defined in ../include/ini.h
-struct INI * interpret(struct INI * ini, char * filePath) {
+struct INI * interpret_ini(struct INI * ini, char * filePath) {
     // Loop Variables    
     char line[MAX_LINE_LENGTH];
     FILE * iniFile = fopen(filePath, "r");

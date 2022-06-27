@@ -36,6 +36,6 @@ struct INI {
 };
 
 struct INI * ini_init();
-struct INI * interpret(struct INI * ini, char * filePath);
+struct INI * interpret_ini(struct INI * ini, char * filePath);
 
 #endif
