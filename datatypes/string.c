@@ -5,29 +5,33 @@
 #include <stdarg.h>
 #include <string.h>
 
-
-char * add_strings(int args, ...) {
+char * add_strings(int argNum, ...) {
     va_list vl;
-    va_start(vl, args);
-    char * placeHolder = malloc(sizeof(char)*(255*args));
+    int mallocLen = 1;
+    char * placeHolder = malloc(mallocLen);
     *placeHolder = '\0';
 
-    for (int i = 0; i < args; i++) {
-        strcat(placeHolder, va_arg(vl, char*));        
+    va_start(vl, argNum);
+
+    for (int i = 0; i < argNum; i++) {
+        char * arg = va_arg(vl, char*);
+        mallocLen += strlen(arg);
+        placeHolder = realloc(placeHolder, mallocLen);
+        strcat(placeHolder, arg);
     }
     
+    va_end(vl);
     return placeHolder;
 }
 
 char * remove_char(char * str, char delim) {
-    char * ret = malloc(sizeof(char)*strlen(str));
+    char * ret = malloc(strlen(str)+1);
     int retPtr = 0;
     for (int i = 0; i < strlen(str); i++) {
         if (str[i]!=delim) {
             ret[retPtr] = str[i];
             retPtr++;
         }
-        continue;
     }
     ret[retPtr] = '\0';
     return ret;
@@ -35,30 +39,50 @@ char * remove_char(char * str, char delim) {
 
 
 char * remove_substr(char * str, char * delim) {
-    
 }
 
 char ** split(char * str, char * delim) {
+    char ** splits = malloc(sizeof(char*)+1);
+    int splitsPtr = 0;
 
-}
-char * h_split(char * str, char * delim) {
+    char * placeHolder = malloc(strlen(str)+1);
+    int placeHolderPtr = 0;
+    for (int i = 0; i < (strlen(str)); i++) {
+        char token[strlen(delim)+1];
+        memcpy(token, &str[i], strlen(delim));
+        if (strncmp(token, delim, strlen(delim))==0) {
+            printf("Adding to split!");
+            splits = realloc(splits, sizeof(char*)*(splitsPtr+2));
+            splits[splitsPtr] = malloc(strlen(placeHolder)+1);
+            strcpy(splits[splitsPtr], placeHolder);
+            splitsPtr++;
+            placeHolderPtr = 0;
+            i+=strlen(delim)-1;
+        }
+        else {
+            placeHolder[placeHolderPtr] = str[i];
+            placeHolderPtr++;
+        }
+    }
+    splits[splitsPtr] = malloc(strlen(placeHolder)+1);
+    strcpy(splits[splitsPtr], placeHolder);
 
-}
-char * t_split(char * str, char * delim) {
+    free(placeHolder);
 
+    return splits;
 }
 
 // Int to String
 char * itos(int num) {
-    char str[255];
+    char * str = malloc(255);
     sprintf(str, "%d", num);
-    char * ret = str;
-    return ret;
+    str = realloc(str, strlen(str)+1);
+    return str;
 }
 // Float to String
 char * ftos(float num) {
-    char str[255];
+    char * str = malloc(255);
     sprintf(str, "%f", num);
-    char * ret = str;
-    return ret;
+    str = realloc(str, strlen(str)+1);
+    return str;
 }
