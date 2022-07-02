@@ -35,7 +35,7 @@ int main(int argc, char * argv[]) {
 
     char * c = "c";
     char * removeSubStr = remove_substr("Precum", c);
-    //printf("countSubstr result is: %s\n", count_substr("there are 4 cccc's", c));
+    printf("countSubstr result is: %d\n", count_substr("there are 4 cccc's", c));
     printf("removeSubstr result is: %s\n\n", removeSubStr);
     free(removeSubStr);
 
