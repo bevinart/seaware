@@ -1,15 +1,14 @@
 #include "files.h"
 
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <stdbool.h>
 
 char * read_file(char * filePath) {
     FILE *file;
     file = fopen(filePath, "r");
     char c;
-    char * output = malloc(sizeof(char) * get_file_size(filePath));
+    char * output = malloc(get_file_size(filePath)+1);
     int outputPtr = 0;
 
     while((c = getc(file)) != EOF) {
@@ -47,7 +46,7 @@ void append_file(char * filePath, char * content) {
     fclose(file);
 }
 
-bool file_exists(char * filePath) {
+int file_exists(char * filePath) {
     FILE *file;
     if (( file = fopen(filePath, "r") )) {
         fclose(file);
