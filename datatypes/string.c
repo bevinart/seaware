@@ -39,6 +39,7 @@ char * remove_char(char * str, char delim) {
 
 
 char * remove_substr(char * str, char * delim) {
+    return str;
 }
 
 char ** split(char * str, char * delim) {
@@ -50,18 +51,21 @@ char ** split(char * str, char * delim) {
     for (int i = 0; i < (strlen(str)); i++) {
         char token[strlen(delim)+1];
         memcpy(token, &str[i], strlen(delim));
+
         if (strncmp(token, delim, strlen(delim))==0) {
-            printf("Adding to split!");
             splits = realloc(splits, sizeof(char*)*(splitsPtr+2));
             splits[splitsPtr] = malloc(strlen(placeHolder)+1);
             strcpy(splits[splitsPtr], placeHolder);
+            
             splitsPtr++;
+            placeHolder[0] = '\0';
             placeHolderPtr = 0;
             i+=strlen(delim)-1;
         }
         else {
             placeHolder[placeHolderPtr] = str[i];
             placeHolderPtr++;
+            placeHolder[placeHolderPtr] = '\0';
         }
     }
     splits[splitsPtr] = malloc(strlen(placeHolder)+1);
