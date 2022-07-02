@@ -24,22 +24,40 @@ char * add_strings(int argNum, ...) {
     return placeHolder;
 }
 
-char * remove_char(char * str, char delim) {
-    char * ret = malloc(strlen(str)+1);
-    int retPtr = 0;
-    for (int i = 0; i < strlen(str); i++) {
-        if (str[i]!=delim) {
-            ret[retPtr] = str[i];
-            retPtr++;
+int count_substr(char * str, char * delim) {
+    int ret = 0;
+    
+    for (int i = 0; i < strlen(str)-strlen(delim); i++) {
+        char token[strlen(delim)];
+        memcpy(token, &str[i], strlen(delim));
+        if (strncmp(token, delim, strlen(delim)) == 0) {
+            ret++;
+            i+=strlen(delim)-1;
         }
     }
-    ret[retPtr] = '\0';
+
     return ret;
 }
 
-
 char * remove_substr(char * str, char * delim) {
-    return str;
+    char * ret = malloc(1);
+    int retPtr = 0;
+
+    for (int i = 0; i < strlen(str); i++) {
+        char token[strlen(delim)];
+        memcpy(token, &str[i], strlen(delim));
+        if (strncmp(token, delim, strlen(delim)) != 0) {
+            ret = realloc(ret, retPtr+2);
+            ret[retPtr] = str[i];
+            retPtr++;
+        }
+        else {
+            i+=strlen(delim)-1;
+        }
+    }
+
+    ret[retPtr] = '\0';
+    return ret;
 }
 
 char ** split(char * str, char * delim) {
@@ -48,7 +66,7 @@ char ** split(char * str, char * delim) {
 
     char * placeHolder = malloc(strlen(str)+1);
     int placeHolderPtr = 0;
-    for (int i = 0; i < (strlen(str)); i++) {
+    for (int i = 0; i < strlen(str); i++) {
         char token[strlen(delim)+1];
         memcpy(token, &str[i], strlen(delim));
 
@@ -58,16 +76,16 @@ char ** split(char * str, char * delim) {
             strcpy(splits[splitsPtr], placeHolder);
             
             splitsPtr++;
-            placeHolder[0] = '\0';
             placeHolderPtr = 0;
             i+=strlen(delim)-1;
         }
         else {
             placeHolder[placeHolderPtr] = str[i];
             placeHolderPtr++;
-            placeHolder[placeHolderPtr] = '\0';
         }
     }
+
+    placeHolder[placeHolderPtr] = '\0';
     splits[splitsPtr] = malloc(strlen(placeHolder)+1);
     strcpy(splits[splitsPtr], placeHolder);
 

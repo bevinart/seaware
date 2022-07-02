@@ -4,9 +4,10 @@
 // 'int args' : # of args
 char * add_strings(int args, ...);
 
-char * remove_char(char * str, char delim);
-char * remove_substr(char * str, char * delim);
+// Seg fault with counting
+int count_substr(char * str, char * delim);
 
+char * remove_substr(char * str, char * delim);
 
 // Splits string into multiple sections
 char ** split(char * str, char * delim);
