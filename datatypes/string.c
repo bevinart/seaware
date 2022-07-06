@@ -4,12 +4,24 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <stdbool.h>
 
-char * add_strings(int argNum, ...) {
+string new_string() {
+    string newStr;
+    newStr.value = malloc(1);
+    newStr.value[0] = '\0';
+    newStr.add = add_strings;
+    newStr.count = count_substr;
+    newStr.remove = remove_substr;
+    newStr.split = split;
+    return newStr;
+}
+
+char * add_strings(string str, int argNum, ...) {
     va_list vl;
-    int mallocLen = 1;
+    int mallocLen = strlen(str.value)+1;
     char * placeHolder = malloc(mallocLen);
-    *placeHolder = '\0';
+    strcpy(placeHolder, str.value);
 
     va_start(vl, argNum);
 
@@ -21,37 +33,63 @@ char * add_strings(int argNum, ...) {
     }
     
     va_end(vl);
+
     return placeHolder;
 }
 
-char * remove_char(char * str, char delim) {
-    char * ret = malloc(strlen(str)+1);
-    int retPtr = 0;
-    for (int i = 0; i < strlen(str); i++) {
-        if (str[i]!=delim) {
-            ret[retPtr] = str[i];
-            retPtr++;
+char * remove_substr(string str, char * delim) {
+    char * newVal = malloc(strlen(str.value)+1);
+    int newValPtr = 0;
+
+    for (int i = 0; i < strlen(str.value); i++) {
+        char token[strlen(delim)+1];
+        memcpy(token, &str.value[i], strlen(delim));
+        if (strncmp(token, delim, strlen(delim))==0) {
+            i+=strlen(delim)-1;
+        }
+        else {
+            newVal[newValPtr] = str.value[i];
+            newValPtr++;
         }
     }
-    ret[retPtr] = '\0';
-    return ret;
+    return newVal;
+}
+
+int count_substr(string str, char * delim) {
+
+}
+
+char * trim(string str) {
+    char * newVal = malloc(1);
+    int stringStartPoint = 0;
+    int stringCopySize = 0;
+    for (int i = 0; i < strlen(str.value); i++) {
+        if (str.value[i] != ' ') {
+            break;
+        }
+        stringStartPoint = i+1;
+        printf("%d", stringStartPoint);
+    }
+    for (int k = 0; str.value[strlen(str.value)-k-1] == ' '; k++) {
+        stringCopySize = (strlen(str.value)-k-1)-stringStartPoint;
+    }
+    newVal = realloc(newVal, stringCopySize+1);
+    memcpy(newVal, &str.value[stringStartPoint], stringCopySize);
+    newVal[stringCopySize] = '\0';
+    return newVal;
 }
 
 
-char * remove_substr(char * str, char * delim) {
-}
-
-char ** split(char * str, char * delim) {
+char ** split(string str, char * delim) {
     char ** splits = malloc(sizeof(char*)+1);
     int splitsPtr = 0;
 
-    char * placeHolder = malloc(strlen(str)+1);
+    char * placeHolder = malloc(strlen(str.value)+1);
     int placeHolderPtr = 0;
-    for (int i = 0; i < (strlen(str)); i++) {
+    for (int i = 0; i < (strlen(str.value)); i++) {
         char token[strlen(delim)+1];
-        memcpy(token, &str[i], strlen(delim));
+        memcpy(token, &str.value[i], strlen(delim));
         if (strncmp(token, delim, strlen(delim))==0) {
-            printf("Adding to split!");
             splits = realloc(splits, sizeof(char*)*(splitsPtr+2));
             splits[splitsPtr] = malloc(strlen(placeHolder)+1);
             strcpy(splits[splitsPtr], placeHolder);
@@ -60,7 +98,7 @@ char ** split(char * str, char * delim) {
             i+=strlen(delim)-1;
         }
         else {
-            placeHolder[placeHolderPtr] = str[i];
+            placeHolder[placeHolderPtr] = str.value[i];
             placeHolderPtr++;
         }
     }
