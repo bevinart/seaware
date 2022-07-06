@@ -36,7 +36,9 @@ int main(int argc, char * argv[]) {
     printf("add_strings() result is: %s\n", as_test);
 
 
-    printf("removeSubstr result is: %s\n\n", str.remove(str, "Thi"));
+    printf("removeSubstr result is: %s\n", str.remove(str, "Thi"));
+    printf("count_substr result is: %d\n\n", str.count(str, "s"));
+
 
     printf("itos() result is: %s\n", itos(12));
     printf("ftos() result is: %s\n\n", ftos(12.1f));

@@ -56,7 +56,18 @@ char * remove_substr(string str, char * delim) {
 }
 
 int count_substr(string str, char * delim) {
+    int count = 0;
 
+    for (int i = 0; i < strlen(str.value)-strlen(delim); i++) {
+        char token[strlen(delim)];
+        memcpy(token, &str.value[i], strlen(delim));
+        if (strncmp(token, delim, strlen(delim))==0) {
+            count++;
+            i+=strlen(delim)-1;
+        }
+    }
+
+    return count;
 }
 
 char * trim(string str) {
@@ -68,7 +79,6 @@ char * trim(string str) {
             break;
         }
         stringStartPoint = i+1;
-        printf("%d", stringStartPoint);
     }
     for (int k = 0; str.value[strlen(str.value)-k-1] == ' '; k++) {
         stringCopySize = (strlen(str.value)-k-1)-stringStartPoint;

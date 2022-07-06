@@ -21,10 +21,6 @@ char * remove_substr(string str, char * delim);
 
 char * trim(string str);
 
-// Anything in quotes will still have spacing
-// Used when formatting code
-char * removeSpacing(char * code);
-
 // Splits string into multiple sections
 char ** split(string str, char * delim);
 
