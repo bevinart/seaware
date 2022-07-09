@@ -2,6 +2,9 @@
 cmake_minimum_required(VERSION 3.23)
 project(seaware VERSION 0.2)
 
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED TRUE)
+
 add_library(seaware STATIC ./fs.h 
                         ./fs/files.c ./fs/files.h
                         ./fs/directories.c ./fs/directories.h
